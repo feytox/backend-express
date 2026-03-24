@@ -13,4 +13,19 @@ router.get("/", function (req, res, next) {
     });
 });
 
+router.post("/", function (req, res, next) {
+    const { name } = req.body;
+    if (!name) {
+        return res.status(400).json({
+            error: "Name is required",
+        });
+    }
+    const newUser = {
+        id: users.length + 1,
+        name,
+    };
+    users.push(newUser);
+    res.status(201).json(newUser);
+});
+
 module.exports = router;
