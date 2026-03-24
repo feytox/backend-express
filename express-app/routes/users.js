@@ -21,6 +21,17 @@ router.get("/", function (req, res, next) {
     });
 });
 
+router.get("/:id", function (req, res, next) {
+    const { id } = req.params;
+    const user = users.find((user) => user.id == id);
+    if (!user) {
+        return res.status(404).json({
+            error: "User not found",
+        });
+    }
+    res.json(user);
+});
+
 router.post("/", function (req, res, next) {
     const { name } = req.body;
     if (!name) {
